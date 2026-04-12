@@ -41,3 +41,4 @@ data %>%
     medel_order = mean(order_value, na.rm = TRUE),
     antal = n()
   )
+
