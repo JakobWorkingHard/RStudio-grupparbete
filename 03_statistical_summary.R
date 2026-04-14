@@ -1,3 +1,5 @@
+# Statistical summary by Salam
+
 library(tidyverse)
 
 data <- read_csv("ecommerce_orders.csv")
