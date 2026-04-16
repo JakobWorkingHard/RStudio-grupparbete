@@ -3,7 +3,7 @@ library(tidyverse)
 library(janitor)
 
 # Läs in data
-df <- read_csv("ecommerce_orders.csv")
+source("01_dataförståelse.R")
 
 # Visa första raderna
 head(df)
