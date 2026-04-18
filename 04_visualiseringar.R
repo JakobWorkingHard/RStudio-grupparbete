@@ -1,6 +1,7 @@
 library(tidyverse)
 library(scales)
-source("03_statistical_summary.R")
+
+source("03_statistiska_summeringar.R")
 
 # Visualiseringar med Jakob
 
