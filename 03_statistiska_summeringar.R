@@ -2,7 +2,9 @@
 
 library(tidyverse)
 
-data <- read_csv("ecommerce_orders.csv")
+source("02_dataförståelse.R")
+
+data <- df
 
 data <- data %>%
   mutate(order_value = quantity * unit_price)
@@ -26,17 +28,11 @@ data %>%
 data %>%
   group_by(product_category) %>%
   summarise(
-    returgrad = mean(return_status == "Yes", na.rm = TRUE),
-    antal = n()
-  )
-names(data)
-# Returgrad per produktkategori
-data %>%
-  group_by(product_category) %>%
-  summarise(
     returgrad = mean(returned == "Yes", na.rm = TRUE),
     antal = n()
-  )# Jämförelse av ordervärde beroende på rabatt
+  )
+
+# Jämförelse av ordervärde beroende på rabatt
 data %>%
   group_by(discount_pct) %>%
   summarise(

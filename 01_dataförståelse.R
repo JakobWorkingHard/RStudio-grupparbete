@@ -24,3 +24,4 @@ table(df$customer_type)
 
 # En sammanfattning av numeriska variabler
 summary(df[, c('quantity', 'unit_price', 'discount_pct', "shipping_days")])
+
