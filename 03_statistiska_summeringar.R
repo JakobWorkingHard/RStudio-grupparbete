@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-source("02_dataförståelse.R")
+source("02_datastädning.R")
 
 data <- df
 
