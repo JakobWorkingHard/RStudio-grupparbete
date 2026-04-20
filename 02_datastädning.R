@@ -20,20 +20,30 @@ names(df)
 # Kolla antal saknade värden per kolumn
 colSums(is.na(df))
 
-# Hantera saknade värden
+# Kolla tomma strängar i chr kolumner
+sapply(df, function(x) sum(x == "", na.rm = TRUE))
+
+# Gör tomma värden till NA
+df <- df %>%
+  mutate(
+    city = na_if(city, ""),
+    payment_method = na_if(payment_method, ""),
+    campaign_source = na_if(campaign_source, "")
+  )
+
+# Hantera NA
 df <- df %>%
   mutate(
     # Ersätt NA i rabatt med 0 (ingen rabatt)
     discount_pct = replace_na(discount_pct, 0),
-    
     # Ersätt kategoriska NA med "Unknown"
-    payment_method = replace_na(payment_method, "Unknown"),
     city = replace_na(city, "Unknown"),
+    payment_method = replace_na(payment_method, "Unknown"),
     campaign_source = replace_na(campaign_source, "Unknown"),
-    
     # Ersätt NA i leveranstid med median
     shipping_days = replace_na(shipping_days, median(shipping_days, na.rm = TRUE))
   )
+
 
 colSums(is.na(df))
 
