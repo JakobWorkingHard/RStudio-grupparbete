@@ -6,8 +6,7 @@ source("02_datastädning.R")
 
 data <- df
 
-data <- data %>%
-  mutate(order_value = quantity * unit_price)
+
 # Antal rader (antal ordrar)
 nrow(data)
 
@@ -28,7 +27,7 @@ data %>%
 data %>%
   group_by(product_category) %>%
   summarise(
-    returgrad = mean(returned == "Yes", na.rm = TRUE),
+    returgrad = mean(returned_binary, na.rm = TRUE),
     antal = n()
   )
 
@@ -37,6 +36,24 @@ data %>%
   group_by(discount_pct) %>%
   summarise(
     medel_order = mean(order_value, na.rm = TRUE),
+    antal = n()
+  )
+
+# Jämförelse bland rabattgrupper
+
+data %>%
+  group_by(discount_group) %>%
+  summarise(
+    medel_order = mean(order_value, na.rm = TRUE),
+    median_order = median(order_value, na.rm = TRUE),
+    antal = n()
+  )
+
+# Jämförelse bland rabattgrupper och returgrad
+data %>%
+  group_by(discount_group) %>%
+  summarise(
+    returgrad = mean(returned_binary, na.rm = TRUE),
     antal = n()
   )
 

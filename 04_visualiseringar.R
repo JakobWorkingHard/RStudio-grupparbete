@@ -23,6 +23,9 @@ data %>%
     y = "Returgrad"
   ) + 
   theme_minimal()
+#Tolkning:
+#Returgraden är högst för Fashion och Home, medan Sports har lägst. 
+#Detta tyder på att vissa produktkategorier är mer benägna att returneras.
 
 # Trendlinje med scatterplot för hur leveranstider påverkar returgraden
 data %>%
@@ -42,6 +45,10 @@ data %>%
     y = "Returgrad"
   ) +
   theme_minimal()
+
+#Tolkning:
+#Grafen visar ett tydligt positivt samband mellan leveranstid och returgrad. 
+#Längre leveranstider verkar öka risken för att kunder returnerar sina produkter.
 
 
 # Samma som ovan (trendlinje för att se hur leveranstiden påverkar andelen returer)
@@ -67,6 +74,10 @@ data %>%
   theme_minimal() +
   theme(strip.text = element_text(face = "bold")) 
 
+#Tolkning:
+#Sambandet mellan leveranstid och retur varierar mellan kategorier. 
+#Effekten är särskilt tydlig för Fashion, medan den är svagare för andra kategorier.
+
 
 # Grupperar datan baserat på 3 variabler (leveranstid, region och kundtyp)
 # Detta är dock lite riskabelt då det kan vara alldenes för få datapunkter i respektive kategori
@@ -89,6 +100,48 @@ data %>%
     y = "Returgrad"
   ) +
   theme_bw() 
+#Tolkning:
+#Sambandet varierar mellan regioner och kundsegment, 
+#men resultaten bör tolkas försiktigt då antal datapunkter kan påverka kvalitén av tolkningen.
+
+# Ordervärde per rabattnivå
+
+data %>%
+  group_by(discount_group) %>%
+  summarise(
+    medel_order = mean(order_value, na.rm = TRUE)
+  ) %>%
+  ggplot(aes(x = discount_group, y = medel_order)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Genomsnittligt ordervärde per rabattnivå",
+    x = "Rabattgrupp",
+    y = "Ordervärde"
+  ) +
+  theme_minimal()
+
+#Tolkning:
+#Ordervärdet är högst för ordrar utan rabatt. 
+#Rabatter verkar inte leda till högre ordervärde i detta dataset.
+
+data %>%
+  group_by(discount_group) %>%
+  summarise(
+    returgrad = mean(returned_binary, na.rm = TRUE)
+  ) %>%
+  ggplot(aes(x = discount_group, y = returgrad)) +
+  geom_col(fill = "steelblue") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(
+    title = "Returgrad per rabattnivå",
+    x = "Rabattgrupp",
+    y = "Returgrad"
+  ) +
+  theme_minimal()
+
+#Tolking: 
+#Returgraden är tydligt högre vid höga rabatter, vilket tyder på att rabatter kan öka risken för returer.
+
 
 
 # Så vad säger den här datan oss? 
